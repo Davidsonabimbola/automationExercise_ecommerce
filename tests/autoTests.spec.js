@@ -78,7 +78,7 @@ const congratPage = page.locator('[class="col-sm-9 col-sm-offset-1"]')
 
 
     test.only('login test', async ({page})=>{
-      test.setTimeout(60000)
+      test.setTimeout(80000)
 
       await page.goto('/')
 
@@ -107,30 +107,35 @@ const congratPage = page.locator('[class="col-sm-9 col-sm-offset-1"]')
 
    //place order
 
-  //  const itemContainer = page.locator('[class="col-sm-4"]').nth(0)
-   const productInfo = page.locator('[class="productinfo text-center"]')
-   await productInfo.getByText('Blue Top',{exact:true}).nth(0).hover()
-   
+  //  const selectedItem = page.locator('[class="col-sm-4"]').nth(0)
 
-  //  await console.log((await itemContainer.locator(productInfo).allTextContents()).length)
+  //  const selectedItemName = await selectedItem.locator('[class="overlay-content"]').locator('p')
+  //  console.log(await selectedItemName.textContent())
 
 
+ const prods = await page.locator('[class="choose"]').nth(1)
+ await prods.getByRole('link', {name: 'View Product'}).click()
 
-  //  const productCard = page.locator('[class="single-products"]').nth(0)
-  // //  const productContainer = page.locator('[class="col-sm-4"]').filter({has:productCard})
-  // //  await productContainer.click()
-  //  await productCard.click()
-  //  const overlaySect = productCard.locator('[class="product-overlay"]')
-  //  await overlaySect.locator('[class="overlay-content"]').locator('a').click()
-   //await productCard.nth(0).getByRole('link', {name: 'View Product'}).click()
 
-  //   const productInfo = page.locator('[class="productinfo text-center"]').locator('p')
-  //   const productContent = await productInfo.filter({hasText:'Blue Top'})
+ await page.getByRole('button', {name: 'Add to cart'}).click()
 
-  //   const selectItem = productCard.filter({has:productContent})
-  //   // await selectItem.hover()
-  //  const overlayContainer = await selectItem.locator('[class="overlay-content"]')
-  //   await overlayContainer.getByRole('link', {name:'Add to cart'}).click()
+ 
+ await expect(page.locator('[class="modal-dialog modal-confirm"]')).toBeVisible()
+
+ await page.getByRole ('button', {name: 'Continue Shopping'}).click()
+
+
+ const navContainer = page.locator('[class="nav navbar-nav"]')
+ const cartLink = page.locator('[class="fa fa-shopping-cart"]')
+ await navContainer.locator('a').filter({has:cartLink}).click()
+
+ 
+ 
+
+
+
+
+
 
 
     })
